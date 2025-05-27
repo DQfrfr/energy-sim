@@ -10,6 +10,7 @@ public:
 	void displayDevices(std::vector<Device*>& devices);
 	int toggleDeviceState(std::vector<Device*>& devices);
 	std::vector<std::string> collectDeviceDetails();
+	void displayAllApplianceTypes();
 
 };
 

@@ -129,10 +129,14 @@
   <ItemGroup>
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Smart Home Monitor System.cpp" />
+    <ClCompile Include="StringUtil.cpp" />
+    <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="UiManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Device.h" />
+    <ClInclude Include="StringUtil.h" />
+    <ClInclude Include="SystemManager.h" />
     <ClInclude Include="UiManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

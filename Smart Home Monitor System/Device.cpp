@@ -15,22 +15,28 @@ void Device::flipPowerState()
 std::string Device::getDeviceType()
 {
 	switch (deviceType) {
-	case DeviceType::Light: return "Light";
-	case DeviceType::Fridge: return "Fridge";
-	case DeviceType::TV: return "TV";
-	case DeviceType::Heater: return "Heater";
-	case DeviceType::AirConditioner: return "Air Conditioner";
-	case DeviceType::Fan: return "Fan";
-	case DeviceType::Washer: return "Washer";
-	case DeviceType::Dryer: return "Dryer";
-	case DeviceType::Oven: return "Oven";
-	case DeviceType::Microwave: return "Microwave";
-	case DeviceType::Computer: return "Computer";
-	case DeviceType::Router: return "Router";
-	case DeviceType::Charger: return "Charger";
-	case DeviceType::Speaker: return "Speaker";
+	case DeviceType::Light: return "Light (60W)";
+	case DeviceType::Fridge: return "Fridge (150W)";
+	case DeviceType::TV: return "TV (120W)";
+	case DeviceType::Heater: return "Heater (1500W)";
+	case DeviceType::AirConditioner: return "Air Conditioner (1000W)";
+	case DeviceType::Fan: return "Fan (75W)";
+	case DeviceType::Washer: return "Washer (500W)";
+	case DeviceType::Dryer: return "Dryer (3000W)";
+	case DeviceType::Oven: return "Oven (2400W)";
+	case DeviceType::Microwave: return "Microwave (1100W)";
+	case DeviceType::Computer: return "Computer (250W)";
+	case DeviceType::Router: return "Router (10W)";
+	case DeviceType::Charger: return "Charger (5W)";
+	case DeviceType::Speaker: return "Speaker (50W)";
 	default: return "Custom";
 	}
+}
+
+void Device::changeType(DeviceType deviceType)
+{
+	this->deviceType = deviceType;
+	setPowerConsumption();
 }
 
 void Device::setPowerConsumption()

@@ -19,13 +19,19 @@ enum class DeviceType {
 	Router = 12,           // 10 W - average value
 	Charger = 13,          // 5 W - average value
 	Speaker = 14,          // 20 W - average value
-	Custom = 15            // (user-defined)
+	Custom = 15,            // (user-defined)
+	COUNT // Total number of device types
 };
 
 
 class Device
 {
 public:
+	void printDeviceTyoes()
+	{
+		
+	}
+
 	short getDeviceID() {
 		return deviceID;
 	}
@@ -48,13 +54,17 @@ public:
 
 	std::string getDeviceType();
 
+	void changeType(DeviceType type);
+
 	float getPowerConsumption() {
 		return powerConsumption;
 	}
 
 	void setPowerConsumption(float consumption);
 
-	Device(int type, const std::string& name)
+	Device() {}
+
+	Device(DeviceType type, const std::string& name)
 	{
 		deviceName = name;
 		deviceType = static_cast<DeviceType> (type);
@@ -62,7 +72,7 @@ public:
 		setPowerConsumption();
 	}
 
-	Device(int type, const std::string& name, float consumption)
+	Device(DeviceType type, const std::string& name, float consumption)
 	{
 		deviceName = name;
 		deviceType = static_cast<DeviceType> (type);

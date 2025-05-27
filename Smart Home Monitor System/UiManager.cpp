@@ -1,4 +1,5 @@
 #include "UiManager.h"
+#include "StringUtil.h"
 
 /* Displays main menu and returns int value based off user's choice. Should never 
 return any value other than 1-7. A return of -1 indicates an error in input or an invalid choice. */
@@ -9,7 +10,7 @@ int UiManager::displayMainMenu()
 	std::cout << "[2] Toggle Devices On/Off" << std::endl;
 	std::cout << "[3] Add New Device" << std::endl;
 	std::cout << "[4] Remove Device" << std::endl;
-	std::cout << "[5] View Current Energy Usage (since last reset)" << std::endl;
+	std::cout << "[5] Run Sim" << std::endl;
 	std::cout << "[6] Reset Energy Usage Counter" << std::endl;
 	std::cout << "[7] Exit" << std::endl;
 
@@ -26,23 +27,39 @@ int UiManager::displayMainMenu()
 		std::cout << "Invalid choice. Please try again." << std::endl;
 		return -1; // Return an error code
 	}
+	std::cout << std::endl;
 	return choice; // Return the valid choice
 }
 
 void UiManager::displayDevices(std::vector<Device*>& devices)
 {
+	if (devices.empty())
+	{
+		std::cout << "No devices found." << std::endl;
+		return;
+	}
+
 	for (Device* device : devices) {
 		std::cout << "Device ID: " << device->getDeviceID() << std::endl;
 		std::cout << "Device Name: " << device->getDeviceName() << std::endl;
 		std::cout << "Device Type: " << device->getDeviceType() << std::endl;
 		std::cout << "Power Consumption: " << device->getPowerConsumption() << " W" << std::endl;
+		std::cout << "State: " << (device->isOnOff() ? "On" : "Off") << std::endl;
 		std::cout << "------------------------" << std::endl;
 	}
+	std::cout << std::endl;
 }
 
 int UiManager::toggleDeviceState(std::vector<Device*>& devices)
 {
+	if (devices.empty())
+	{
+		std::cout << "No devices found." << std::endl;
+		return -1; // Return an error code
+	}
+
 	int counter = 1;
+	std::cout << "[0] Toggle All" << std::endl;
 	for (Device* device : devices)
 	{
 		std::cout << "[" << counter << "] " << device->getDeviceName() << " - ";
@@ -54,6 +71,7 @@ int UiManager::toggleDeviceState(std::vector<Device*>& devices)
 		{
 			std::cout << "Off" << std::endl;
 		}
+		counter++;
 	}
 	
 	int choice;
@@ -63,6 +81,7 @@ int UiManager::toggleDeviceState(std::vector<Device*>& devices)
 		std::cin >> choice;
 		if (choice == -1)
 		{
+			std::cout << std::endl;
 			return -1;
 		}
 		else if (choice < 0)
@@ -75,6 +94,7 @@ int UiManager::toggleDeviceState(std::vector<Device*>& devices)
 			std::cout << "Please enter a valid option" << std::endl;
 			continue;
 		}
+		std::cout << std::endl;
 		return choice;
 	}
 }
@@ -88,8 +108,9 @@ std::vector<std::string> UiManager::collectDeviceDetails()
 
 	while (1)
 	{
-		std::cout << "Please enter the devices name" << std::endl;
-		std::cin >> name;
+		std::cout << "Please enter the devices name: ";
+		std::cin.ignore();
+		std::getline(std::cin, name);
 		if (name.size() <= 1)
 		{
 			std::cout << "Name must be longer than 1 charachter" << std::endl;
@@ -104,11 +125,14 @@ std::vector<std::string> UiManager::collectDeviceDetails()
 	{
 		std::cout << "Please enter the Device catergory (Type 'D' to display types)" << std::endl;
 		std::cin >> type;
-		if (type.size() < 2)
+		type = StringUtil::toLower(type); // Convert to lowercase for consistency
+
+		if (type == "d")
 		{
-			std::cout << "Device category should be longer than 2 charachters" << std::endl;
+			displayAllApplianceTypes();
 			continue;
 		}
+		deviceDetails.push_back(type);
 		break;
 	}
 
@@ -139,4 +163,18 @@ std::vector<std::string> UiManager::collectDeviceDetails()
 	}
 
 	return deviceDetails;
+}
+
+void UiManager::displayAllApplianceTypes()
+{
+	std::cout << std::endl;
+	Device device;
+
+	for (int i = 1; i <= static_cast<int>(DeviceType::COUNT) - 1; i++)
+	{
+		device.changeType(static_cast<DeviceType>(i));
+		std::cout << "[" << i << "] " << device.getDeviceType() << std::endl;
+	}
+
+	std::cout << std::endl;
 }
