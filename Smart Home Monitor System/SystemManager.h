@@ -22,16 +22,15 @@ public:
 
 private:
 	UiManager uiManager;
+	std::vector<int> usedIds;
 	std::vector<Device*> devices;
 	float totalPowerConsumption;
-
+	short generateID();
 	void runSim();
 	void toggleDeviceState();
 	void addDevice();
-	void removeDevice()
-	{
-		std::cout << "Remove device functionality not implemented yet." << std::endl;
-	}
+	void removeDevice();
+	bool hasActiveDevices();
 	DeviceType stringToDeviceType(std::string& deviceType);
 };
 

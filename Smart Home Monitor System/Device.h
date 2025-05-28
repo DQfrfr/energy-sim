@@ -27,10 +27,6 @@ enum class DeviceType {
 class Device
 {
 public:
-	void printDeviceTyoes()
-	{
-		
-	}
 
 	short getDeviceID() {
 		return deviceID;
@@ -42,7 +38,7 @@ public:
 
 	void flipPowerState();
 
-	bool isOnOff() { return isActive; }
+	bool isOn() { return isActive; }
 
 	void setDeviceName(std::string& name) {
 		if (name.empty()) {
@@ -64,16 +60,18 @@ public:
 
 	Device() {}
 
-	Device(DeviceType type, const std::string& name)
+	Device(DeviceType type, const std::string& name, short id)
 	{
+		deviceID = id;
 		deviceName = name;
 		deviceType = static_cast<DeviceType> (type);
 		isActive = false; // Default to inactive
 		setPowerConsumption();
 	}
 
-	Device(DeviceType type, const std::string& name, float consumption)
+	Device(DeviceType type, const std::string& name, float consumption, short id)
 	{
+		deviceID = id;
 		deviceName = name;
 		deviceType = static_cast<DeviceType> (type);
 		isActive = false; // Default to inactive
@@ -82,7 +80,7 @@ public:
 
 private:
 	//TODO: Device ID needs to be unique across all devices
-	const short deviceID = rand() % 10000 + 1; // Random ID between 1 and 10000
+	short deviceID;
 	std::string deviceName;
 	DeviceType deviceType;
 	float powerConsumption; // in watts

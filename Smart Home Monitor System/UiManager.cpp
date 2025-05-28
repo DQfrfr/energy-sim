@@ -12,7 +12,8 @@ int UiManager::displayMainMenu()
 	std::cout << "[4] Remove Device" << std::endl;
 	std::cout << "[5] Run Sim" << std::endl;
 	std::cout << "[6] Reset Energy Usage Counter" << std::endl;
-	std::cout << "[7] Exit" << std::endl;
+	std::cout << "[7] Clear Terminal" << std::endl;
+	std::cout << "[8] Exit" << std::endl;
 
 	std::cin >> choice;
 	if (std::cin.fail())
@@ -22,7 +23,7 @@ int UiManager::displayMainMenu()
 		return -1; // Return an error code
 	}
 
-	if (choice < 1 || choice > 7)
+	if (choice < 1 || choice > 8)
 	{
 		std::cout << "Invalid choice. Please try again." << std::endl;
 		return -1; // Return an error code
@@ -44,7 +45,7 @@ void UiManager::displayDevices(std::vector<Device*>& devices)
 		std::cout << "Device Name: " << device->getDeviceName() << std::endl;
 		std::cout << "Device Type: " << device->getDeviceType() << std::endl;
 		std::cout << "Power Consumption: " << device->getPowerConsumption() << " W" << std::endl;
-		std::cout << "State: " << (device->isOnOff() ? "On" : "Off") << std::endl;
+		std::cout << "State: " << (device->isOn() ? "On" : "Off") << std::endl;
 		std::cout << "------------------------" << std::endl;
 	}
 	std::cout << std::endl;
@@ -63,7 +64,7 @@ int UiManager::toggleDeviceState(std::vector<Device*>& devices)
 	for (Device* device : devices)
 	{
 		std::cout << "[" << counter << "] " << device->getDeviceName() << " - ";
-		if (device->isOnOff())
+		if (device->isOn())
 		{
 			std::cout << "On" << std::endl;
 		} 
