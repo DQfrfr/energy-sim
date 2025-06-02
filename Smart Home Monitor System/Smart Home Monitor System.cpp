@@ -1,8 +1,8 @@
 #include "SystemManager.h"
+#include <memory>
 
 int main()
 {
-	SystemManager systemManager;
-	systemManager.start();
+	std::unique_ptr<SystemManager> sys = std::make_unique<SystemManager>();
 	return 0;
 }

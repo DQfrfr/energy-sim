@@ -13,35 +13,37 @@ void SystemManager::start()
 		{
 		case 1:
 			uiManager.displayDevices(devices);
-			break;
+			continue;
 		case 2:
 			toggleDeviceState();
-			break;
+			continue;
 		case 3:
 			addDevice();
 			system("cls");
-			break;
+			continue;
 		case 4:
 			removeDevice();
-			break;
+			continue;
 		case 5:
 			runSim();
-			break;
+			continue;
 		case 6:
 			system("cls");
 			std::cout << "Resetting energy usage counter..." << std::endl;
 			totalPowerConsumption = 0.0f; // Reset the total power consumption
-			break;
+			continue;
 		case 7:
 			system("cls"); // Clear the terminal
-			break;
+			continue;
 		case 8:
 			std::cout << "Exiting the system. Goodbye!" << std::endl;
 			for (Device* device : devices) {
 				delete device; // Clean up dynamically allocated devices
 			}
-			exit(0); // Exit the loop and end the program
+			//exit(0); // Exit the loop and end the program
+			break;
 		}
+		break;
 	}
 }
 

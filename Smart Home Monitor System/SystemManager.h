@@ -14,10 +14,11 @@ public:
 
 	SystemManager()
 	{
-		// Initialize the UI manager and devices
+		// Initialize the UI manager and devices and starts program
 		uiManager = UiManager();
 		totalPowerConsumption = 0.0f;
 		devices = std::vector<Device*>();
+		start();
 	}
 
 private:
