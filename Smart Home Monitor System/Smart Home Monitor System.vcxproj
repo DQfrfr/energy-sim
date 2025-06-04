@@ -127,14 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BatteryDevice.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Smart Home Monitor System.cpp" />
+    <ClCompile Include="SmartDevice.cpp" />
     <ClCompile Include="StringUtil.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="UiManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BatteryDevice.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="SmartDevice.h" />
     <ClInclude Include="StringUtil.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="UiManager.h" />

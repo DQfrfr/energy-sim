@@ -36,7 +36,13 @@ public:
 		return deviceName;
 	}
 
-	void flipPowerState();
+	bool operator == (int deviceId) { return this->deviceID == deviceId; }
+
+	virtual friend std::ostream& operator << (std::ostream& os, Device dev);
+
+	virtual void update(float& totalPower);
+
+	virtual void flipPowerState();
 
 	bool isOn() { return isActive; }
 
@@ -49,6 +55,8 @@ public:
 	}
 
 	std::string getDeviceType();
+
+	DeviceType getType() { return deviceType; }
 
 	void changeType(DeviceType type);
 
@@ -84,7 +92,10 @@ private:
 	std::string deviceName;
 	DeviceType deviceType;
 	float powerConsumption; // in watts
-	bool isActive;
 
 	void setPowerConsumption();
+
+protected:
+	bool isActive;
+
 };

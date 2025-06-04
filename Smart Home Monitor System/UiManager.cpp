@@ -13,7 +13,8 @@ int UiManager::displayMainMenu()
 	std::cout << "[5] Run Sim" << std::endl;
 	std::cout << "[6] Reset Energy Usage Counter" << std::endl;
 	std::cout << "[7] Clear Terminal" << std::endl;
-	std::cout << "[8] Exit" << std::endl;
+	std::cout << "[8] Delete Devices.txt File" << std::endl;
+	std::cout << "[9] Exit" << std::endl;
 
 	std::cin >> choice;
 	if (std::cin.fail())
@@ -23,7 +24,7 @@ int UiManager::displayMainMenu()
 		return -1; // Return an error code
 	}
 
-	if (choice < 1 || choice > 8)
+	if (choice < 1 || choice > 9)
 	{
 		std::cout << "Invalid choice. Please try again." << std::endl;
 		return -1; // Return an error code
@@ -41,12 +42,7 @@ void UiManager::displayDevices(std::vector<Device*>& devices)
 	}
 
 	for (Device* device : devices) {
-		std::cout << "Device ID: " << device->getDeviceID() << std::endl;
-		std::cout << "Device Name: " << device->getDeviceName() << std::endl;
-		std::cout << "Device Type: " << device->getDeviceType() << std::endl;
-		std::cout << "Power Consumption: " << device->getPowerConsumption() << " W" << std::endl;
-		std::cout << "State: " << (device->isOn() ? "On" : "Off") << std::endl;
-		std::cout << "------------------------" << std::endl;
+		std::cout << (*device);
 	}
 	std::cout << std::endl;
 }
@@ -100,12 +96,35 @@ int UiManager::toggleDeviceState(std::vector<Device*>& devices)
 	}
 }
 
+//[0] = type of device, [1] = device name, [2] = device category, [3] = if it exist, its either user inputed power draw or Smart device power limit, [4] = if exist its smart device power limit
 std::vector<std::string> UiManager::collectDeviceDetails()
 {
 	std::vector<std::string> deviceDetails;
+	std::string deviceType;
 	std::string name;
 	std::string type;
 	float wattHours;
+
+	while (1)
+	{
+		short type;
+		std::cout << "Would you like to add a 1. Device, 2. Smart Device, 3. Battery Powered Device" << std::endl;
+		std::cin >> type;
+		if (std::cin.fail())
+		{
+			std::cout << "Please enter a number" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
+		if (type < 1 || type > 3)
+		{
+			std::cout << "Please enter a valid option. 1, 2, or 3" << std::endl;
+			continue;
+		}
+		deviceDetails.push_back(std::to_string(type));
+		break;
+	}
 
 	while (1)
 	{
@@ -161,6 +180,30 @@ std::vector<std::string> UiManager::collectDeviceDetails()
 		}
 		deviceDetails.push_back(std::to_string(wattHours));
 		break;
+	}
+
+	if (deviceDetails.at(0) == "2")
+	{
+		float drawLimit;
+		while (1)
+		{
+			std::cout << "Please enter devices Power draw limit" << std::endl;
+			std::cin >> drawLimit;
+			if (std::cin.fail())
+			{
+				std::cout << "Please enter a number" << std::endl;
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				continue;
+			}
+			if (drawLimit <= 0)
+			{
+				std::cout << "Power draw must be greater than 0" << std::endl;
+				continue;
+			}
+			deviceDetails.push_back(std::to_string(drawLimit));
+			break;
+		}
 	}
 
 	return deviceDetails;

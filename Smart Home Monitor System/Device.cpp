@@ -1,5 +1,15 @@
 #include "Device.h"
 
+void Device::update(float& tot)
+{
+	std::cout << "Device ID: " << getDeviceID() << std::endl;
+	std::cout << "Device Name: " << getDeviceName() << std::endl;
+	std::cout << "Device Type: " << getDeviceType() << std::endl;
+	std::cout << "Power Consumption: " << getPowerConsumption() << " W" << std::endl;
+	std::cout << "------------------------" << std::endl;
+	tot += (getPowerConsumption() / 3600) * 5;
+}
+
 void Device::flipPowerState()
 {
 	if (isActive)
@@ -71,4 +81,15 @@ void Device::setPowerConsumption(float consumption)
 		return;
 	}
 	powerConsumption = consumption;
+}
+
+std::ostream& operator<<(std::ostream& os, Device dev)
+{
+	os << "Device ID: " << dev.getDeviceID() << std::endl;
+	os << "Device Name: " << dev.getDeviceName() << std::endl;
+	os << "Device Type: " << dev.getDeviceType() << std::endl;
+	os << "Power Consumption: " << dev.getPowerConsumption() << " W" << std::endl;
+	os << "State: " << (dev.isOn() ? "On" : "Off") << std::endl;
+	os << "------------------------" << std::endl;
+	return os;
 }
