@@ -38,7 +38,7 @@ public:
 
 	bool operator == (int deviceId) { return this->deviceID == deviceId; }
 
-	virtual friend std::ostream& operator << (std::ostream& os, Device dev);
+	friend std::ostream& operator << (std::ostream& os, Device dev);
 
 	virtual void update(float& totalPower);
 
