@@ -107,6 +107,7 @@ void SystemManager::runSim()
 	int runtime = 0;
 	while (1)
 	{
+		int devicesOn = 0;
 		for (Device* device : devices) {
 			if (!device->isOn())
 			{

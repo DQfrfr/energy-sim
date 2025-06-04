@@ -30,4 +30,3 @@ private:
 	float totalPowerUsed;
 	float powerLimit;
 };
-

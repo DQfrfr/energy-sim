@@ -39,4 +39,3 @@ private:
 	void saveDevices();
 	void loadDevices();
 };
-

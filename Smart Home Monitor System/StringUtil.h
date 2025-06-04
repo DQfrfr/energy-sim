@@ -5,4 +5,3 @@ namespace StringUtil
 {
 	std::string toLower(const std::string& str);
 }
-
